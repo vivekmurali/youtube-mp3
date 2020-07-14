@@ -1,0 +1,21 @@
+{
+  "name": "youtube-mp3",
+  "version": "0.1.0",
+  "description": "Web based youtube to mp3 converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "d": "nodemon index"
+  },
+  "author": "Vivek Murali",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "ytdl-core": "^3.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
