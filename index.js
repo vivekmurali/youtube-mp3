@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", { id: null, done: false });
+  res.render("index.ejs", { id: null, done: false, name: null });
 });
 
 app.get("/audio", (req, res) => {
@@ -23,15 +23,27 @@ app.get("/audio", (req, res) => {
 app.post("/", (req, res) => {
   convert(req.body.url, (d) => {
     setTimeout(() => {
-      fs.unlinkSync(`${d}.mp3`);
-    }, 30000);
-    res.render("index.ejs", { id: d, done: true });
+      fs.stat(`${d}.mp3`, (err, stat) => {
+        if (err) {
+          console.error(err.message);
+        } else {
+          fs.unlinkSync(`${d}.mp3`);
+        }
+      });
+    }, 60000);
+    res.render("download.ejs", {
+      id: d,
+      done: true,
+      name: req.body.fileName,
+      url: req.body.url,
+    });
   });
 });
 
-app.get("/download/:id", (req, res) => {
+app.get("/download/:id/:name", (req, res) => {
   let id = req.params.id;
-  res.download(`${id}.mp3`);
+  let name = req.params.name;
+  res.download(`${id}.mp3`, `${name}.mp3`);
 });
 
 app.listen(port, () => {
@@ -56,7 +68,11 @@ const runFfmpeg = (d, callback) => {
     .format("mp3")
     .output(fs.createWriteStream(`${d}.mp3`))
     .on("end", () => {
-      fs.unlinkSync(`${d}.flv`);
+      try {
+        fs.unlinkSync(`${d}.flv`);
+      } catch (error) {
+        console.error(error.message);
+      }
       callback();
     })
     .run();
@@ -65,5 +81,5 @@ const runFfmpeg = (d, callback) => {
 app.get("/test", (req, res) => {
   ytdl
     .getBasicInfo("https://www.youtube.com/watch?v=2ViZqQkddCc")
-    .then((data) => res.send(data.player_response.videoDetails.videoId));
+    .then((data) => res.send(data.player_response.videoDetails.lengthSeconds));
 });

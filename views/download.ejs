@@ -13,24 +13,29 @@
 
     <body>
         <div class="container section">
-            <h1><i class="fa fa-youtube-play" aria-hidden="true"></i>Youtube to mp3<i class="fa fa-music" aria-hidden="true"></i></h1>
+            <h1><i class="fa fa-youtube-play" aria-hidden="true"></i>Youtube to mp3<i class="fa fa-music"
+                    aria-hidden="true"></i></h1>
             <form action="/" method="POST" id="form">
                 <div class="row">
                     <div class="columns">
-                        <input class="url-input" name="url" type="url" placeholder="Youtube URL" required
-                            autocomplete="off" />
+                        <input class="url-input" onClick="this.setSelectionRange(0, this.value.length)" name="url"
+                            type="url" placeholder="Youtube URL" required autocomplete="off" value=<%= url%> />
                     </div>
                 </div>
                 <div class="row">
                     <div class="columns">
-                        <input class="name-input" name="fileName" type="text" placeholder="Enter a File Name" required
-                            autocomplete="off" />
+                        <input class="name-input" name="fileName" type="text" placeholder="Enter a File Name"
+                            value=<%= name %> required autocomplete="off" />
                     </div>
                 </div>
                 <input id="submit-button" type="submit">
             </form>
+            <h5 class="done-text">Done converting <strong><%= name%></strong>, download within <strong><span
+                        id="timer"></span></strong> seconds</h5>
+            <a href=" /download/<%= id %>/<%= name %>"><button id="download-button"
+                    class="button-primary">Download</button></a>
         </div>
-        <script src="js/main.js"></script>
+        <script src="js/download.js"></script>
     </body>
 
 </html>
