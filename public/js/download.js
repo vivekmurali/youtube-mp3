@@ -7,6 +7,7 @@ form.addEventListener(
       "disabled",
       "disabled"
     );
+    document.querySelector('#load-container').style.display = "block";
   },
   false
 );
@@ -30,9 +31,9 @@ if (window.history.replaceState) {
 document.onreadystatechange = function () {
   if (document.readyState !== "complete") {
     document.querySelector("body").style.visibility = "hidden";
-    document.querySelector("#loader").style.visibility = "visible";
+    document.querySelector("#load-container").style.visibility = "visible";
   } else {
-    document.querySelector("#loader").style.display = "none";
+    document.querySelector("#load-container").style.display = "none";
     document.querySelector("body").style.visibility = "visible";
   }
 };

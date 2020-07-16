@@ -7,8 +7,7 @@ form.addEventListener(
       "disabled",
       "disabled"
     );
-    // document.querySelector("body").style.visibility = "hidden"
-    document.querySelector("#loader").style.display = "block";
+    document.querySelector('#load-container').style.display = "block";
   },
   false
 );
@@ -16,9 +15,9 @@ form.addEventListener(
 document.onreadystatechange = function () {
   if (document.readyState !== "complete") {
     document.querySelector("body").style.visibility = "hidden";
-    document.querySelector("#loader").style.visibility = "visible";
+    document.querySelector("#load-container").style.visibility = "visible";
   } else {
-    document.querySelector("#loader").style.display = "none";
+    document.querySelector("#load-container").style.display = "none";
     document.querySelector("body").style.visibility = "visible";
   }
 };
