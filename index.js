@@ -23,7 +23,9 @@ app.get("/audio", (req, res) => {
 const updateCount = () => {
   fs.readFile("count.txt", (err, data) => {
     if (!err) {
-      fs.writeFile("count.txt", Number(data) + 1, (e) =>{if(err)console.error(err)} );
+      fs.writeFile("count.txt", Number(data) + 1, (e) => {
+        if (err) console.error(err);
+      });
     } else console.error(err.message);
   });
 };
@@ -48,7 +50,7 @@ app.post("/", (req, res) => {
         url: req.body.url,
       });
     } else {
-      res.send("file length limit 10 minutes");
+      res.send("file length limit 45 minutes");
     }
   });
 });
@@ -65,7 +67,7 @@ app.listen(port, () => {
 
 const convert = (url, callback) => {
   ytdl.getBasicInfo(url).then((data) => {
-    if (Number(data.player_response.videoDetails.lengthSeconds) < 900) {
+    if (Number(data.player_response.videoDetails.lengthSeconds) < 2700) {
       ytdl.getBasicInfo(url).then((data) => {
         let d = data.player_response.videoDetails.videoId;
         ytdl(url).pipe(
