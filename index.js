@@ -23,7 +23,7 @@ app.get("/audio", (req, res) => {
 const updateCount = () => {
   fs.readFile("count.txt", (err, data) => {
     if (!err) {
-      fs.writeFile("count.txt", Number(data) + 1, (e) => {
+      fs.writeFile("count.txt", data + 1, (e) => {
         if (err) console.error(err);
       });
     } else console.error(err.message);
